@@ -1,0 +1,60 @@
+openapi: "3.0.2"
+info:
+  title: Kafka 1 Gateway Api
+  version: "1.0.0"
+
+servers:
+  - url: http://localhost/api/v1
+    
+paths:
+  /message/send:
+   post:
+    operationId: sendMessage
+    requestBody:
+      $ref: "#/components/requestBodies/sendMessage"
+    responses:
+      200:
+        $ref: "#/components/responses/sendMessageResponse200"
+
+  /message/receive:
+   get:
+    operationId: receiveMessages
+    responses:
+      200:
+        $ref: "#/components/responses/receiveMessagesResponse200"
+
+components:
+  schemas:
+    sendMessage:
+      type: object
+      required:
+        - text
+      properties:
+        text: 
+          description: the message text
+          type: string
+          example: hello world
+    receiveMessages:
+      type: object
+      properties:
+        text: 
+          description: the message text
+          type: string
+          example: hello world
+
+
+  requestBodies:
+    sendMessage:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/sendMessage"
+  responses:
+    sendMessageResponse200:
+      description: When send message was 
+    receiveMessagesResponse200:
+      description: When user successfully gets receive messages
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/receiveMessages"
