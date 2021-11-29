@@ -17,6 +17,7 @@ jobs:
         run: scripts/build.sh
         shell: sh
       - name: Archive build artifacts
+        id: archive-artifacts
         uses: actions/upload-artifact@v2
         with:
           name: build-artifacts
@@ -30,11 +31,14 @@ jobs:
     environment: production
     steps:
       - name: Download build artifacts
+        id: download-artifacts
         uses: actions/download-artifact@v2
         with:
           name: build-artifacts
           path: lib/typescript-fetch
       - name: Publish to npm
+        id: publish-to-npm
+        working-directory: lib/typescript-fetch
         run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
