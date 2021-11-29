@@ -5,4 +5,4 @@
 # that this repo is expected to create shall be called in this script
 # file
 
-generate "gateway" "v1" "typescript-fetch" "./typescript-fetch.json"
+generate "gateway" "v1" "typescript-fetch" "./typescript-fetch.yml"

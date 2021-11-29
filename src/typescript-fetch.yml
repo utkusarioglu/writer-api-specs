@@ -1,0 +1,5 @@
+npmName: writer-typescript-fetch
+npmVersion: 1.0.0
+npmRepository : https://github.com/utkusarioglu/writer-api-specs
+snapshot : false
+supportsES6: true
