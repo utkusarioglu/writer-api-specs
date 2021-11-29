@@ -36,6 +36,10 @@ jobs:
         with:
           name: build-artifacts
           path: lib/typescript-fetch
+      - name: build npm package
+        id: build-npm-package
+        working-directory: lib/typescript-fetch
+        run: yarn
       - name: Publish to npm
         id: publish-to-npm
         working-directory: lib/typescript-fetch
