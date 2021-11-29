@@ -35,18 +35,15 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifacts
-          path: lib/typescript-fetch
+          path: lib
       - name: build npm package
         id: build-npm-package
         working-directory: lib/typescript-fetch
         run: yarn
-      - name: list stuff
+      - name: Publish to npm
+        id: publish-to-npm
         working-directory: lib/typescript-fetch
-        run: ls -al
-      # - name: Publish to npm
-      #   id: publish-to-npm
-      #   working-directory: lib/typescript-fetch
-      #   run: yarn publish
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
       
