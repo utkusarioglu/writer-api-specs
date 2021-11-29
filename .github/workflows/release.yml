@@ -1,0 +1,41 @@
+name: Release workflow
+on: 
+  release: 
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  create-packages:
+    name: Build api packages
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v2
+      - name: Create packages
+        id: create-packages
+        run: scripts/build.sh
+        shell: sh
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: lib  
+          retention-days: 1
+
+  publish-typescript-fetch:
+    name: Publish typescript-fetch package to npm
+    runs-on: ubuntu-20.04
+    needs: create-packages
+    environment: production
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: lib/typescript-fetch
+      - name: Publish to npm
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+      
