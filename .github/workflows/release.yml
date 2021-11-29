@@ -36,6 +36,10 @@ jobs:
         with:
           name: build-artifacts
           path: lib
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 17.x
+          registry-url: https://registry.npmjs.org
       - name: build npm package
         id: build-npm-package
         working-directory: lib/typescript-fetch
